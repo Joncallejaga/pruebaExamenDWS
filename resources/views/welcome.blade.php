@@ -82,7 +82,7 @@
             <p>
             {{$texto}}
             </p>
-            <form action="{{route(aniadirUsuario)}}" method="post">
+            <form action="{{route('aniadirUsuario')}}" method="post">
             @csrf
                 <input type="text" id="nombre">
                 <button type="submit"></button>            
