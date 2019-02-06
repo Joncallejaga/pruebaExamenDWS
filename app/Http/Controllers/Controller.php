@@ -21,9 +21,11 @@ class Controller extends BaseController
     }
 
     public function aniadirUsuario(Request $request){
-        $nombre = $request;
+        // Cogemos el nombre y lo añadimos a la base de datos
+        $nombre = $_POST['nombre'];
         $nuevoUsuario = new AlumnoModel;
         $nuevoUsuario->insert(['nombre'=>$nombre,'id_profesor'=>rand(1,3)]);
+        return redirect('/'); //Esto lo hacemos para que no se nos quede en una pantalla en blanco
     }
 
 }
