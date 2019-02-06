@@ -15,7 +15,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function inicio(){
-        $texto = "sdfhuivhfdsulivbhufdshviñofdshvñisdfjiovhsdfiñohviñofsn";
+        $texto = "";
         
         return view('welcome')->with('texto',$texto);
     }

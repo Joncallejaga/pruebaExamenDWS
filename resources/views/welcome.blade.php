@@ -84,22 +84,15 @@
             </p>
             <form action="{{route('aniadirUsuario')}}" method="post">
             @csrf
-                <input type="text" id="nombre">
-                <button type="submit"></button>            
+                Nombre del Usuario a añadir =>
+                <input type="text" id="nombre" >
+                Añadir Usuario
+                <button type="submit" name="Añadir Usuario"></button> 
+                <br><br>
+                Id del Usuario a Borrar =>
+                <input type="text" id="nombre" >
+                <button type="submit" name="Borrar Usuario"></button>            
             </form>
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
             </div>
         </div>
     </body>
