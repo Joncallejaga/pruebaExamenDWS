@@ -68,15 +68,19 @@
 
 <body>
     <div>
-        @foreach ($usuarios as $usuario)
-
+        @foreach ($usuario_alumno['alumnos'] as $alumno)
+        @foreach ($usuario_alumno['usuarios'] as $usuario)
+        @if($alumno['id_usuario']==$usuario['id'])
         <form method="POST" action="{{route('borrarUsuario')}}">
             @csrf
-            <input type="text" name="nombre" id="nombre" value="{{$usuario['nombre']}}">
+            <input type="text" name="nombre" id="nombre" value="{{$usuario['username']}}">
             <input type="hidden" name="id_usuario" value="{{$usuario['id']}}">
             <input type="submit" name="borrar" value="Borrar">
         </form>
+        @endif
         @endforeach
+        @endforeach
+
        
 
         <form method="GET" action="{{route('/')}}">

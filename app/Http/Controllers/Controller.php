@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AlumnoModel;
 use App\ProfesorModel;
+use App\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -30,8 +31,11 @@ class Controller extends BaseController
     }
     public function borrar()
     {
-        $usuarios = AlumnoModel::all();
-        return view('borrar')->with('usuarios', $usuarios);
+        $alumnos = AlumnoModel::all();
+        $usuarios = User::all();
+
+        $usuario_alumno = ['alumnos'=>$alumnos , 'usuarios'=>$usuarios];
+        return view('borrar')->with('usuario_alumno', $usuario_alumno);
 
     }
 
@@ -49,7 +53,7 @@ class Controller extends BaseController
     {
         $nombre = $_POST['nombre'];
         $id_usuario = $_POST['id_usuario'];
-        $borrarUsuario = AlumnoModel::where('id', $id_usuario);
+        $borrarUsuario = User::where('id', $id_usuario);
         if (isset($_POST['borrar'])) {
             $borrarUsuario->delete();
 

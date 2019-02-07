@@ -14,9 +14,8 @@ class UserSeeder extends Seeder
         for($usuarios=1;$usuarios!=13;$usuarios++){
 
             DB::table('user')->insert(array(
-                'nombre'=>'usuario'.$usuarios,
-                'password'=>123,
-            ));
+                'username'=>'usuario'.$usuarios,
+                'password'=>Hash::make('123')));
     }
     }
 }
