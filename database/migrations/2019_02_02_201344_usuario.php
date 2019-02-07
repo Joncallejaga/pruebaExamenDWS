@@ -16,8 +16,8 @@ class Usuario extends Migration
         Schema::dropIfExists('user');
         Schema::create('user',function(Blueprint $table){
             $table->increments('id', 3);
-            $table->string('nombre', 20);
-            $table->string('password', 20);
+            $table->string('username', 20);
+            $table->string('password', 300);
             $table->timestamps();
 
 
