@@ -68,29 +68,36 @@
 
 <body>
     <div>
-        @foreach ($usuarios['alumnos'] as $alumno)
-
+        {{-- Mostramos todo --}}
+        @foreach ($todos_usuarios['alumnos'] as $alumno) @foreach ($todos_usuarios['usuarios'] as $usuario) @if($usuario['id']==$alumno['id_usuario'])
         <form method="POST" action="{{route('actualizarAlumno')}}">
             @csrf
-            <input type="text" name="nombre" id="nombre" value="{{$alumno['nombre']}}">
+            <input type="text" name="nombre" id="nombre" value="{{$usuario['username']}}">
             <input type="hidden" name="id_alumno" value="{{$alumno['id']}}">
-            <select name="id_profesor"> 
-                    @foreach ($usuarios['profesores'] as $profe)
-                        <option 
-                        @if($alumno['id_profesor']==$profe['id'])
-                            selected
-                        @endif
-                        value="{{$profe['id']}}">{{$profe['nombre']}}</option>
-                        
-                    @endforeach
-            </select>
+            <select name="id_profesor">
+                    @foreach ($todos_usuarios['profesores'] as $profesor)
+                    <option
+                    @if($alumno['id_profesor']==$profesor['id'])
+                    selected
+                    @endif
+                    {{-- Mostramos los profesores otra vez para validar --}}
+                    @foreach ($todos_usuarios['usuarios'] as $usuario)
+                        @if($usuario['id']==$profesor['id_usuario'])
+                            value="{{$profesor['id']}}">{{$usuario['username']}}</option>
+                            @endif
+                            @endforeach
+                            @endforeach
+                        </select>
             <input type="submit" name="actualizar" value="Actualizar">
 
 
         </form>
-        @endforeach
-    
-        </div>
+        @endif @endforeach @endforeach
+        <form method="GET" action="{{route('/')}}">
+            @csrf
+            <input type="submit" value="Volver">
+        </form>
+    </div>
     </div>
 </body>
 

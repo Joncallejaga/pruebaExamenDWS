@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\AlumnoModel;
 use App\ProfesorModel;
+use App\User;
+use Hash;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -21,17 +23,21 @@ class Controller extends BaseController
 
     public function actualizar()
     {
+        $usuarios = User::all();
         $alumnos = AlumnoModel::all();
         $profesores = ProfesorModel::all();
-        $usuarios = ['alumnos'=>$alumnos , 'profesores'=>$profesores];
-        return view('actualizar')->with('usuarios', $usuarios);
+        $todos_usuarios = ['alumnos'=>$alumnos , 'profesores'=>$profesores, 'usuarios'=>$usuarios];
+        return view('actualizar')->with('todos_usuarios', $todos_usuarios);
 
 
     }
     public function borrar()
     {
-        $usuarios = AlumnoModel::all();
-        return view('borrar')->with('usuarios', $usuarios);
+        $alumnos = AlumnoModel::all();
+        $usuarios = User::all();
+
+        $usuario_alumno = ['alumnos'=>$alumnos , 'usuarios'=>$usuarios];
+        return view('borrar')->with('usuario_alumno', $usuario_alumno);
 
     }
 
@@ -39,8 +45,12 @@ class Controller extends BaseController
     {
         // Cogemos el nombre y lo añadimos a la base de datos
         $nombre = $_POST['nombre'];
-        $nuevoUsuario = new AlumnoModel;
-        $nuevoUsuario->insert(['nombre' => $nombre, 'id_profesor' => rand(1, 3)]);
+        $nuevoUsuario = new User;
+        $nuevoAlumno = new AlumnoModel;
+        $nuevoUsuario->insert(['username' => $nombre,'password'=>Hash::make('123')]);
+        $nuevoAlumno->insert(['id_usuario'=>User::max('id'), 'id_profesor' => rand(1, 3)]);
+
+        
         return redirect('/'); //Esto lo hacemos para que no se nos quede en una pantalla en blanco
     }
 
@@ -49,7 +59,7 @@ class Controller extends BaseController
     {
         $nombre = $_POST['nombre'];
         $id_usuario = $_POST['id_usuario'];
-        $borrarUsuario = AlumnoModel::where('id', $id_usuario);
+        $borrarUsuario = User::where('id', $id_usuario);
         if (isset($_POST['borrar'])) {
             $borrarUsuario->delete();
 
@@ -60,12 +70,13 @@ class Controller extends BaseController
 
     public function actualizarAlumno(Request $request)
     {
-        $nombre = $_POST['nombre'];
-        $id_alumno = $_POST['id_alumno'];
-        $id_profesor = $_POST['id_profesor'];
-        $actualizarAlumno = AlumnoModel::where('id', $id_alumno);
+        $nombre = $_POST['nombre']; //Tabla User
+        $id_alumno = $_POST['id_alumno']; //Tabla alumno
+        $id_profesor = $_POST['id_profesor']; //Tabla profe
+        $actualizarAlumno = AlumnoModel::where('id', $id_alumno)->first();
+        $actualizarUsuario = User::where('id', $actualizarAlumno['id_usuario'])->first();
         if (isset($_POST['actualizar'])) {
-            $actualizarAlumno->update(['nombre' => $nombre]);
+            $actualizarUsuario->update(['username' => $nombre]);
             $actualizarAlumno->update(['id_profesor' => $id_profesor]);
 
         }
