@@ -12,15 +12,15 @@ class profesoresSeeder extends Seeder
     public function run()
     {
         DB::table('profesores')->insert(array(
-            'nombre'=>'Pedro', 
+            'id_usuario'=>1,
             'departamento'=>'Informatica',
         ));
         DB::table('profesores')->insert(array(
-            'nombre'=>'Julio', 
+            'id_usuario'=>2,
             'departamento'=>'Lengua',
         ));
         DB::table('profesores')->insert(array(
-            'nombre'=>'Elena', 
+            'id_usuario'=>3,
             'departamento'=>'Politica',
         ));
     }

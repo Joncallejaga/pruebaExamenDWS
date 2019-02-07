@@ -68,20 +68,28 @@
 
 <body>
     <div>
-        @foreach ($usuarios as $usuario)
+        @foreach ($usuarios['alumnos'] as $alumno)
 
-        <form method="POST" action="{{route('actualizarUsuario')}}">
+        <form method="POST" action="{{route('actualizarAlumno')}}">
             @csrf
-            <input type="text" name="nombre" id="nombre" value="{{$usuario['nombre']}}">
-            <input type="hidden" name="id_usuario" value="{{$usuario['id']}}">
+            <input type="text" name="nombre" id="nombre" value="{{$alumno['nombre']}}">
+            <input type="hidden" name="id_alumno" value="{{$alumno['id']}}">
+            <select name="id_profesor"> 
+                    @foreach ($usuarios['profesores'] as $profe)
+                        <option 
+                        @if($alumno['id_profesor']==$profe['id'])
+                            selected
+                        @endif
+                        value="{{$profe['id']}}">{{$profe['nombre']}}</option>
+                        
+                    @endforeach
+            </select>
             <input type="submit" name="actualizar" value="Actualizar">
-            <input type="submit" name="borrar" value="Borrar">
+
+
         </form>
         @endforeach
-        <div class="content">
-            <div class="title m-b-md">
-                Laravel
-            </div>
+    
         </div>
     </div>
 </body>

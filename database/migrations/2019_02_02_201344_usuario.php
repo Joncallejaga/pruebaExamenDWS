@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Profesores extends Migration
+class Usuario extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class Profesores extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('profesores');
-        Schema::create('profesores',function(Blueprint $table){
+        Schema::dropIfExists('user');
+        Schema::create('user',function(Blueprint $table){
             $table->increments('id', 3);
-            $table->string('departamento', 20);
-            $table->unsignedInteger('id_usuario')->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('user')->onDelete('cascade');
+            $table->string('nombre', 20);
+            $table->string('password', 20);
             $table->timestamps();
 
 
@@ -32,6 +31,6 @@ class Profesores extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profesores');
+        Schema::dropIfExists('user');       
     }
 }

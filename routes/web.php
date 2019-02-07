@@ -11,7 +11,16 @@
 |
 */
 
-Route::get('/', 'Controller@inicio')->name('/');
+Route::get('/', function(){
+    return redirect('login');
+})->name('/');
+    Route::get('/home', 'Controller@inicio')->name('/home');
 Route::get('/actualizar', 'Controller@actualizar')->name('/actualizar');
+Route::get('/borrar', 'Controller@borrar')->name('/borrar');
 Route::post('/aniadirUsuario', 'Controller@aniadirUsuario')->name('aniadirUsuario');
-Route::post('/actualizarUsuario', 'Controller@actualizarUsuario')->name('actualizarUsuario');
+Route::post('/actualizarAlumno', 'Controller@actualizarAlumno')->name('actualizarAlumno');
+Route::post('/borrarUsuario', 'Controller@borrarUsuario')->name('borrarUsuario');
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

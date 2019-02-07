@@ -14,7 +14,7 @@ class alumnosSeeder extends Seeder
         for($alumnos=1;$alumnos!=10;$alumnos++){
 
         DB::table('alumnos')->insert(array(
-            'nombre'=>'alumno'.$alumnos, 
+            'id_usuario'=>3+$alumnos,
             'id_profesor'=>rand(1,3),
         ));
     }

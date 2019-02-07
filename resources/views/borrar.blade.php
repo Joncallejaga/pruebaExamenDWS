@@ -67,31 +67,23 @@
 </head>
 
 <body>
-    <div class="flex-center position-ref full-height">
+    <div>
+        @foreach ($usuarios as $usuario)
 
-        <form method="POST" action="{{route('aniadirUsuario')}}">
+        <form method="POST" action="{{route('borrarUsuario')}}">
             @csrf
-            <input type="text" name="nombre" id="nombre"> {{--Lo que se guarda en el post es el campo name, por lo que este
-            tambien tiene que ser unico--}}
-            <input type="submit" value="Añadir"> {{--Al hacer type submit nos coge directamente como si fuera un boton, por
-            lo que usaremos esto--}}
-            
+            <input type="text" name="nombre" id="nombre" value="{{$usuario['nombre']}}">
+            <input type="hidden" name="id_usuario" value="{{$usuario['id']}}">
+            <input type="submit" name="borrar" value="Borrar">
         </form>
-        
-        <form method="GET" action="{{route('/borrar')}}">
+        @endforeach
+       
+
+        <form method="GET" action="{{route('/')}}">
             @csrf
-            <input type="submit" value="Borrar"> {{--Al hacer type submit nos coge directamente como si fuera un boton, por
-            lo que usaremos esto--}}
-            
+            <input type="submit" value="Volver">
         </form>
-
-
-        <form method="GET" action="{{route('/actualizar')}}">
-            @csrf
-            <input type="submit" value="Actualizar">
-        </form>
-
-
+        </div>
     </div>
 </body>
 

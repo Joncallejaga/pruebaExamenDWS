@@ -16,9 +16,10 @@ class Alumnos extends Migration
         Schema::dropIfExists('alumnos');
         Schema::create('alumnos',function(Blueprint $table){
             $table->increments('id', 3);
-            $table->string('nombre', 20);
             $table->unsignedInteger('id_profesor')->unsigned();
-            $table->foreign('id_profesor', 20)->references('id')->on('profesores')->onDelete('cascade');
+            $table->unsignedInteger('id_usuario')->unsigned();
+            $table->foreign('id_profesor')->references('id')->on('profesores')->onDelete('cascade');
+            $table->foreign('id_usuario')->references('id')->on('user')->onDelete('cascade');
             $table->timestamps();
 
         });
@@ -31,7 +32,7 @@ class Alumnos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alumno');
+        Schema::dropIfExists('alumnos');
         
     }
 }
