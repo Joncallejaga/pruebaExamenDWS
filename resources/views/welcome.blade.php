@@ -68,37 +68,22 @@
 
 <body>
     <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a> @else
-            <a href="{{ route('login') }}">Login</a> @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a> @endif @endauth
-        </div>
-        @endif
 
-        <p>
-            {{$texto}}
-        </p>
-        <form method="POST" action="{{route('aniadirUsuario')}}"> {{--La ruta es la que tenemos puesta con el controlador--}}
-            @csrf    {{--Con esto arreglamos un error de dependencias --}}
-            <input type="text" name="nombre" id="nombre"> {{--Lo que se guarda en el post es el campo name, por lo que este tambien tiene que ser unico--}}
-            <input type="submit" value="Añadir"> {{--Al hacer type submit nos coge directamente como si fuera un boton, por lo que usaremos esto--}}
+        <form method="POST" action="{{route('aniadirUsuario')}}">
+            @csrf
+            <input type="text" name="nombre" id="nombre"> {{--Lo que se guarda en el post es el campo name, por lo que este
+            tambien tiene que ser unico--}}
+            <input type="submit" value="Añadir"> {{--Al hacer type submit nos coge directamente como si fuera un boton, por
+            lo que usaremos esto--}}
         </form>
-        <div class="content">
-            <div class="title m-b-md">
-                Laravel
-            </div>
 
-            <div class="links">
-                <a href="https://laravel.com/docs">Documentation</a>
-                <a href="https://laracasts.com">Laracasts</a>
-                <a href="https://laravel-news.com">News</a>
-                <a href="https://nova.laravel.com">Nova</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
-            </div>
-        </div>
+
+        <form method="GET" action="{{route('/actualizar')}}">
+            @csrf
+            <input type="submit" value="Actualizar">
+        </form>
+
+
     </div>
 </body>
 

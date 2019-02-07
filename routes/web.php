@@ -12,4 +12,6 @@
 */
 
 Route::get('/', 'Controller@inicio')->name('/');
+Route::get('/actualizar', 'Controller@actualizar')->name('/actualizar');
 Route::post('/aniadirUsuario', 'Controller@aniadirUsuario')->name('aniadirUsuario');
+Route::post('/actualizarUsuario', 'Controller@actualizarUsuario')->name('actualizarUsuario');

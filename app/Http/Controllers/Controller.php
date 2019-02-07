@@ -15,9 +15,14 @@ class Controller extends BaseController
 
     public function inicio()
     {
+        return view('welcome');
+    }
 
+    public function actualizar()
+    {
+        $usuarios = AlumnoModel::all();
+        return view('actualizar')->with('usuarios', $usuarios);
 
-        return view('welcome')->with('usuarios', $texto);
     }
 
     public function aniadirUsuario(Request $request)
@@ -29,4 +34,18 @@ class Controller extends BaseController
         return redirect('/'); //Esto lo hacemos para que no se nos quede en una pantalla en blanco
     }
 
+    public function actualizarUsuario(Request $request)
+    {
+        $nombre = $_POST['nombre'];
+        $id_usuario = $_POST['id_usuario'];
+        $actualizarUsuario = AlumnoModel::where('id', $id_usuario);
+        if (isset($_POST['actualizar'])) {
+            $actualizarUsuario->update(['nombre' => $nombre]);
+
+        } elseif (isset($_POST['borrar'])) {
+            $actualizarUsuario->delete();
+        }
+
+        return redirect('/actualizar'); //Esto lo hacemos para que no se nos quede en una pantalla en blanco
+    }
 }

@@ -67,24 +67,20 @@
 </head>
 
 <body>
-<div>
-        <form method="POST" action="{{route('actualizarUsuario')}}"> {{--La ruta es la que tenemos puesta con el controlador--}}
-            @csrf    {{--Con esto arreglamos un error de dependencias --}}
-            <input type="text" name="nombre" id="nombre" value="{{usuario['nombre']}}"> {{--Lo que se guarda en el post es el campo name, por lo que este tambien tiene que ser unico--}}
-            <input type="submit" value="actualizar"> {{--Al hacer type submit nos coge directamente como si fuera un boton, por lo que usaremos esto--}}
+    <div>
+        @foreach ($usuarios as $usuario)
+
+        <form method="POST" action="{{route('actualizarUsuario')}}">
+            @csrf
+            <input type="text" name="nombre" id="nombre" value="{{$usuario['nombre']}}">
+            <input type="hidden" name="id_usuario" value="{{$usuario['id']}}">
+            <input type="submit" name="actualizar" value="Actualizar">
+            <input type="submit" name="borrar" value="Borrar">
         </form>
+        @endforeach
         <div class="content">
             <div class="title m-b-md">
                 Laravel
-            </div>
-
-            <div class="links">
-                <a href="https://laravel.com/docs">Documentation</a>
-                <a href="https://laracasts.com">Laracasts</a>
-                <a href="https://laravel-news.com">News</a>
-                <a href="https://nova.laravel.com">Nova</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
             </div>
         </div>
     </div>
